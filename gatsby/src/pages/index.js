@@ -1,21 +1,36 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from "react"
+import "./global.css"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+const Home = () => {
+  const [themeName, setThemeName] = useState()
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+  useEffect(() => {
+    setThemeName(window.__currentTheme)
+  }, [])
+
+  useEffect(() => {
+    window.__onSetTheme = function(themeName) {
+      setThemeName(themeName)
+    }
+  }, [])
+
+  return (
+    <div id="container">
+      <h1>Hello World!</h1>
+      <p>
+        This page is currently using a <strong>{themeName}</strong> theme
+      </p>
+      <button
+        onClick={() => {
+          const current = window.__currentTheme
+          const next = current === "dark" ? "light" : "dark"
+          window.__setTheme(next)
+        }}
+      >
+        Toggle
+      </button>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+  )
+}
 
-export default IndexPage
+export default Home
