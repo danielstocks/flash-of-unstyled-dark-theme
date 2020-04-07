@@ -50,9 +50,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <Script>{inlineScript}</Script>
         <Head />
         <body>
-          <Script>{inlineScript}</Script>
           <Main />
           <NextScript />
         </body>
